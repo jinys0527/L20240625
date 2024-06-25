@@ -14,6 +14,7 @@ AMyRocket::AMyRocket()
 
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
 	RootComponent = Box;
+	Box->SetGenerateOverlapEvents(true);
 	Box->SetBoxExtent(FVector(50.f, 10.f, 10.f));
 
 	Rocket = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rocket"));
@@ -39,11 +40,20 @@ AMyRocket::AMyRocket()
 	Movement->ProjectileGravityScale = 0.0f;
 }
 
+void AMyRocket::ProcessActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *OtherActor->GetName());
+}
+
 // Called when the game starts or when spawned
 void AMyRocket::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	OnActorBeginOverlap.AddDynamic(this, &AMyRocket::ProcessActorBeginOverlap);
+	OnActorBeginOverlap.RemoveDynamic(this, &AMyRocket::ProcessActorBeginOverlap);
+	/*OnActorBeginOverlap.RemoveAll(this);*/
+
 	SetLifeSpan(3.0f);
 }
 

@@ -36,22 +36,40 @@ public:
 	void Roll(float Value);
 	void PressBoost();
 	void ReleaseBoost();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void BPCallCPPOverride(int Score);
+	void BPCallCPPOverride_Implementation(int Score);
+
+	//C++ call Blueprint function execute, 아트, 기획자는 프로그래밍을 손을 안됨
+	UFUNCTION(BlueprintImplementableEvent)
+	void BPCallCPP(int Score);
+
+	//Blueprint call C++ function execute
+	UFUNCTION(BlueprintCallable)
 	void Fire();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<UBoxComponent> Box;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> Body;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UMyStaticMeshComponent> Left;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UMyStaticMeshComponent> Right;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UArrowComponent> Arrow;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> Camera;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<USpringArmComponent> SpringArm;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UFloatingPawnMovement> Movement;
 
