@@ -39,11 +39,11 @@ AMyPawn::AMyPawn()
 
 	Left = CreateDefaultSubobject<UMyStaticMeshComponent>(TEXT("Left"));
 	Left->SetupAttachment(Body);
-	Left->SetRelativeLocation(FVector(37.2f, 21.f, 0.5f));
+	Left->SetRelativeLocation(FVector(37.2f, -21.f, 0.5f));
 	
 	Right = CreateDefaultSubobject<UMyStaticMeshComponent>(TEXT("Right"));
 	Right->SetupAttachment(Body);
-	Right->SetRelativeLocation(FVector(37.2f, -21.f, 0.5f));
+	Right->SetRelativeLocation(FVector(37.2f, 21.f, 0.5f));
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Propeller(TEXT("/Script/Engine.StaticMesh'/Game/P38/Meshes/SM_P38_Propeller.SM_P38_Propeller'"));
 	if (SM_Propeller.Succeeded())
@@ -74,6 +74,12 @@ AMyPawn::AMyPawn()
 	Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
 	
 	Boost = 0.5f;
+
+	static ConstructorHelpers::FClassFinder<AMyRocket> BP_RocketClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/BP_Rocket.BP_Rocket_C'"));
+	if (BP_RocketClass.Succeeded())
+	{
+		RocketTemplate = BP_RocketClass.Class;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -128,6 +134,6 @@ void AMyPawn::ReleaseBoost()
 
 void AMyPawn::Fire()
 {
-	GetWorld()->SpawnActor<AMyRocket>(Arrow->K2_GetComponentLocation(), Arrow->K2_GetComponentRotation());
+	GetWorld()->SpawnActor<AMyRocket>(RocketTemplate, Arrow->K2_GetComponentLocation(), Arrow->K2_GetComponentRotation());
 }
 

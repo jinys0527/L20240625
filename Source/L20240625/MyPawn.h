@@ -38,21 +38,26 @@ public:
 	void ReleaseBoost();
 	void Fire();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<UBoxComponent> Box;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> Body;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UMyStaticMeshComponent> Left;
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UMyStaticMeshComponent> Right;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UArrowComponent> Arrow;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> Camera;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<USpringArmComponent> SpringArm;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UFloatingPawnMovement> Movement;
 
+	UPROPERTY(EditAnywhere, BlueprintReadwrite, Category = "Status")
 	float Boost;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status")
+	TSubclassOf<class AMyRocket> RocketTemplate;
 };
